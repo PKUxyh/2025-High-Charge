@@ -55,7 +55,7 @@ else:
 # ---------------------------------------------------------------------------
 # Compute rms bunch length
 # ---------------------------------------------------------------------------
-trapz = getattr(np, "trapezoid", None) or getattr(np, "trapz")
+trapz = getattr(np, "trapezoid", None) if hasattr(np, "trapezoid") else np.trapz
 norm = trapz(signal, time_ps)
 mean_t = trapz(time_ps * signal, time_ps) / norm
 rms_t = np.sqrt(trapz((time_ps - mean_t) ** 2 * signal, time_ps) / norm)
